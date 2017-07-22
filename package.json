@@ -1,0 +1,28 @@
+{
+  "name": "quick_taste_backend",
+  "version": "1.0.0",
+  "description": "A service for those who want quick tastes",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ikess/quick_taste_backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ikess/quick_taste_backend/issues"
+  },
+  "homepage": "https://github.com/ikess/quick_taste_backend#readme",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "mongodb": "^2.2.30"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}
+
