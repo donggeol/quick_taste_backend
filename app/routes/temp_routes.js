@@ -9,6 +9,12 @@ module.exports = function(app, db) {
             res.send('Hello')
     });
 
+    //search on instagram
+    app.get('/search_insta', (req, res) => {
+        console.log(req.body)
+            res.send('Hello')
+    });
+
     // search on naver blog
     app.get('/search_naver', (req, res) => {
         var search = req.query.keyword;
