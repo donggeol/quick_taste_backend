@@ -18,9 +18,11 @@
   "homepage": "https://github.com/ikess/quick_taste_backend#readme",
   "dependencies": {
     "body-parser": "^1.17.2",
+    "cheerio": "^1.0.0-rc.2",
     "express": "^4.15.3",
     "mongodb": "^2.2.30",
     "querystring": "^0.2.0",
+    "request": "^2.81.0",
     "xml2js": "^0.4.17",
     "xml2json": "^0.11.0"
   },
