@@ -1,4 +1,4 @@
-const tempRoutes = require('./temp_routes');
+const tempRoutes = require('./routes');
 
 module.exports = function(app, db) {
     tempRoutes(app, db);
