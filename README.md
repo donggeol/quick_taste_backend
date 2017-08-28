@@ -1,5 +1,5 @@
 # quick_taste
-A service for those who want quick tastes
+A service for those who want quick tastes  
 You can search any food with a single keyword, and it shows Instagram search result ,which is the pictures of food, and Naver Blog search result, which is the reviews and store info of the restaurant.
 ## quick_taste_backend
 This is a server which supports quick_taste_android.
