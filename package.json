@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/ikess/quick_taste_backend#readme",
   "dependencies": {
+    "async": "^2.5.0",
     "body-parser": "^1.17.2",
     "cheerio": "^1.0.0-rc.2",
     "express": "^4.15.3",

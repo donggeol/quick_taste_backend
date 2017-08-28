@@ -16,6 +16,198 @@ module.exports = function(app, db) {
             res.send('Hello')
     });
 
+    app.post('/post_blog_image', (req, res) => {
+        var query = req.body.keyword;
+        var url = 'http://blog.naver.com/celinicious/221069169411';
+        var path = 'query=' + encodeURIComponent(query);
+        var serverData = '', _serverData = '', __serverData = '';
+        var result = '';
+
+        console.log('----------------------------------------------------------------------');
+        console.log('post_blog_image start');
+        console.log('----------------------------------------------------------------------');
+        console.log('[POST] get map list of : ' + query);
+        console.log('url : ' + url + path);
+
+        request({
+            url: query,
+            mutipart:[{
+                'content-type' :'text/html;charset=utf-8'
+            }],
+        }, function (error, response, body) {
+            if (error) {
+                console.log(error)
+            } else {
+                console.log('success');
+            }
+        })
+        .on('data', function(data) {
+            serverData += data;
+        })
+        .on('response', function(response) {
+            response.setEncoding('utf8');
+            response.on('data', function(data) {
+                console.log('received ' + data.length + ' bytes of compressed data')
+            })
+            response.on('end', function() {
+                var $ = cheerio.load(serverData);
+
+                var start = serverData.indexOf("name=\"mainFrame\"");
+                var end = serverData.indexOf("\"", start+22);
+                var id = serverData.substring(start+22,end);
+
+                console.log("id -> " + id);
+                console.log("url -> " + 'http://blog.naver.com' + id);
+
+                request({
+                    url: 'http://blog.naver.com' + id
+                }, function (error, response, body) {
+                    if (error) {
+                        console.log(error)
+                    } else {
+                        console.log('success');
+                    }
+                })
+                .on('data', function(data) {
+                    _serverData += data;
+                })
+                .on('response', function(response) {
+                    response.on('data', function(data) {
+                        //console.log('received ' + data.length + ' bytes of compressed data')
+                    })
+                    response.on('end', function() {
+                        var $ = cheerio.load(_serverData);
+                        var id;
+
+                        var start = _serverData.indexOf("<div id=\"post-area\">");
+                        console.log("start1 : " + start);
+                        start = _serverData.indexOf("<div id=\"postListBody\">",start);
+                        console.log("start1 : " + start);
+                        var tmpstart = _serverData.indexOf("<div id=\"postViewArea\">",start);
+                        console.log("tmp start1 : " + tmpstart);
+                        if(tmpstart != -1) start = tmpstart;
+                        start = _serverData.indexOf("<img",start+1);
+                        console.log("<img> find : " + start);
+                        start = _serverData.indexOf("<img",start+1);
+                        console.log("<img> find : " + start);
+                        start = _serverData.indexOf("<img",start+1);
+                        console.log("<img> find : " + start);
+                        start = _serverData.indexOf("<img",start+1);
+                        console.log("<img> find : " + start);
+                        start = _serverData.indexOf("<img",start+1);
+                        console.log("<img> find : " + start);
+                        start = _serverData.indexOf("<img",start+1);
+                        console.log("<img> find : " + start);
+                        var img_start = _serverData.indexOf("src", start);
+                        console.log("img start : " + img_start);
+                        var img_end = _serverData.indexOf("\"", img_start+5);
+                        console.log("img end : " + img_end);
+                        var id = _serverData.substring(img_start+5,img_end);
+
+                        console.log("id -> " + id);
+                        res.send(id);
+                    })
+                })
+            })
+        })
+    });
+
+    app.get('/get_blog_image', (req, res) => {
+        var query = req.query.keyword;
+        var url = 'http://blog.naver.com/ebseb1/221035510409';
+        url = 'http://blog.naver.com/ankyunglove?Redirect=Log&logNo=221077102083';
+        //url = 'http://blog.naver.com/doosan605?Redirect=Log&logNo=221063776882';
+        //url = 'http://blog.naver.com/skillsun?Redirect=Log&logNo=221079322411';
+        var path = 'query=' + encodeURIComponent(query);
+        var serverData = '', _serverData = '', __serverData = '';
+        var result = '';
+
+        console.log('[POST] get map list of : ' + query);
+        console.log('url : ' + url + path);
+
+        request({
+            url: query,
+            mutipart:[{
+                'content-type' :'text/html;charset=utf-8'
+            }],
+        }, function (error, response, body) {
+            if (error) {
+                console.log(error)
+            } else {
+                console.log('success');
+            }
+        })
+        .on('data', function(data) {
+            serverData += data;
+        })
+        .on('response', function(response) {
+            response.setEncoding('utf8');
+            response.on('data', function(data) {
+                console.log('received ' + data.length + ' bytes of compressed data')
+            })
+            response.on('end', function() {
+                var $ = cheerio.load(serverData);
+
+                var start = serverData.indexOf("name=\"mainFrame\"");
+                var end = serverData.indexOf("\"", start+22);
+                var id = serverData.substring(start+22,end);
+
+                console.log("id -> " + id);
+                console.log("url -> " + 'http://blog.naver.com' + id);
+
+                request({
+                    url: 'http://blog.naver.com' + id
+                }, function (error, response, body) {
+                    if (error) {
+                        console.log(error)
+                    } else {
+                        console.log('success');
+                    }
+                })
+                .on('data', function(data) {
+                    _serverData += data;
+                })
+                .on('response', function(response) {
+                    response.on('data', function(data) {
+                        //console.log('received ' + data.length + ' bytes of compressed data')
+                    })
+                    response.on('end', function() {
+                        var $ = cheerio.load(_serverData);
+                        var id;
+
+                        var start = _serverData.indexOf("<div id=\"post-area\">");
+                        console.log("start1 : " + start);
+                        start = _serverData.indexOf("<div id=\"postListBody\">",start);
+                        console.log("start1 : " + start);
+                        var tmpstart = _serverData.indexOf("<div id=\"postViewArea\">",start);
+                        console.log("tmp start1 : " + tmpstart);
+                        if(tmpstart != -1) start = tmpstart;
+                        start = _serverData.indexOf("<img",start+1);
+                        console.log("<img> find : " + start);
+                        start = _serverData.indexOf("<img",start+1);
+                        console.log("<img> find : " + start);
+                        start = _serverData.indexOf("<img",start+1);
+                        console.log("<img> find : " + start);
+                        start = _serverData.indexOf("<img",start+1);
+                        console.log("<img> find : " + start);
+                        start = _serverData.indexOf("<img",start+1);
+                        console.log("<img> find : " + start);
+                        start = _serverData.indexOf("<img",start+1);
+                        console.log("<img> find : " + start);
+                        var img_start = _serverData.indexOf("src", start);
+                        console.log("img start : " + img_start);
+                        var img_end = _serverData.indexOf("\"", img_start+5);
+                        console.log("img end : " + img_end);
+                        var id = _serverData.substring(img_start+5,img_end);
+
+                        console.log("id -> " + id);
+                        res.send(id);
+                    })
+                })
+            })
+        })
+    });
+
     //search on instagram
     app.get('/search_insta_sample', (req, res) => {
         var search = req.query.keyword;
@@ -212,8 +404,113 @@ module.exports = function(app, db) {
                 response.setEncoding('utf8');
                 response.on('data', function (xml) {
                     parseString(xml, function(err, result){
-                        var data = JSON.stringify(result);
-                        res.send(data);
+                        var blog_data = JSON.stringify(result);
+
+                        var blog_start = blog_data.indexOf("item");
+                        var blog_end = blog_data.indexOf("item");
+                        var url = '';
+                        for(;;){
+                            var serverData = '', _serverData = '', __serverData = '';
+                            blog_start = blog_data.indexOf("\"link\"",blog_start + 1);
+                            //if(blog_start == -1) break;
+                            blog_end = blog_data.indexOf(",",blog_start);
+                            url = blog_data.substring(blog_start+9,blog_end-2);
+
+                            console.log("log start" + " " + blog_start);
+                            console.log("log end " + blog_end);
+                            console.log('url : ' + url);
+
+                            //if(blog_start == -1) break;
+                            request({
+                                url: url,
+                                mutipart:[{
+                                    'content-type' :'text/html;charset=utf-8'
+                                }],
+                            }, function (error, response, body) {
+                                if (error) {
+                                    console.log(error)
+                                } else {
+                                    console.log('success');
+                                }
+                            })
+                            .on('data', function(data) {
+                                serverData += data;
+                            })
+                            .on('response', function(response) {
+                                response.setEncoding('utf8');
+                                response.on('data', function(data) {
+                                    console.log('received ' + data.length + ' bytes of compressed data')
+                                })
+                                response.on('end', function() {
+                                    var $ = cheerio.load(serverData);
+
+                                    var start1 = serverData.indexOf("name=\"mainFrame\"");
+                                    var end1 = serverData.indexOf("\"", start1+22);
+                                    var id1 = serverData.substring(start1+22,end1);
+
+                                    console.log("id1 -> " + id1);
+                                    //console.log("url -> " + 'http://blog.naver.com' + id);
+
+                                    request({
+                                        url: 'http://blog.naver.com' + id1
+                                    }, function (error, response, body) {
+                                        if (error) {
+                                            console.log(error)
+                                        } else {
+                                            console.log('success');
+                                        }
+                                    })
+                                    .on('data', function(data) {
+                                        _serverData += data;
+                                    })
+                                    .on('response', function(response) {
+                                        response.on('data', function(data) {
+                                            //console.log('received ' + data.length + ' bytes of compressed data')
+                                        })
+                                        response.on('end', function() {
+                                            var $ = cheerio.load(_serverData);
+                                            var id;
+
+                                            var start = _serverData.indexOf("<div id=\"post-area\">");
+                                            console.log("start1 : " + start);
+                                            start = _serverData.indexOf("<div id=\"postListBody\">",start);
+                                            console.log("start1 : " + start);
+                                            var tmpstart = _serverData.indexOf("<div id=\"postViewArea\">",start);
+                                            console.log("tmp start1 : " + tmpstart);
+                                            if(tmpstart != -1) start = tmpstart;
+                                            start = _serverData.indexOf("<img",start+1);
+                                            console.log("<img> find : " + start);
+                                            start = _serverData.indexOf("<img",start+1);
+                                            console.log("<img> find : " + start);
+                                            start = _serverData.indexOf("<img",start+1);
+                                            console.log("<img> find : " + start);
+                                            start = _serverData.indexOf("<img",start+1);
+                                            console.log("<img> find : " + start);
+                                            start = _serverData.indexOf("<img",start+1);
+                                            console.log("<img> find : " + start);
+                                            start = _serverData.indexOf("<img",start+1);
+                                            console.log("<img> find : " + start);
+                                            var img_start = _serverData.indexOf("src", start);
+                                            console.log("img start : " + img_start);
+                                            var img_end = _serverData.indexOf("\"", img_start+5);
+                                            console.log("img end : " + img_end);
+                                            var id = _serverData.substring(img_start+5,img_end);
+
+                                            console.log("id1 -> " + id1);
+                                            console.log("image link -> " + id);
+                                        })
+                                    })
+                                })
+                            })
+                            check = blog_data.indexOf("\"link\"",blog_start + 1);
+                            console.log(blog_start + " " + check);
+                            if(check == -1) break;
+                            //break;
+                        }
+                        res.send(blog_data);
+                        console.log("--------------------------------------------------------------");
+                        console.log("send data");
+                        console.log("--------------------------------------------------------------");
                     });
                 });
             });
@@ -248,6 +545,14 @@ module.exports = function(app, db) {
                 response.on('data', function (xml) {
                     parseString(xml, function(err, result){
                         var data = JSON.stringify(result);
+                        
+                        var start = data.indexOf("item");
+                        var end = data.indexOf("item");
+                        for(;;){
+                            start = data.indexOf("\"link\"",start + 1);
+                            if(start == -1) break;
+                            end = data.indexOf(",");
+                        }
                         res.send(data);
                     });
                 });
