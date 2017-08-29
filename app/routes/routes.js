@@ -115,9 +115,6 @@ module.exports = function(app, db) {
     app.get('/get_blog_image', (req, res) => {
         var query = req.query.keyword;
         var url = 'http://blog.naver.com/ebseb1/221035510409';
-        url = 'http://blog.naver.com/ankyunglove?Redirect=Log&logNo=221077102083';
-        //url = 'http://blog.naver.com/doosan605?Redirect=Log&logNo=221063776882';
-        //url = 'http://blog.naver.com/skillsun?Redirect=Log&logNo=221079322411';
         var path = 'query=' + encodeURIComponent(query);
         var serverData = '', _serverData = '', __serverData = '';
         var result = '';
@@ -227,7 +224,6 @@ module.exports = function(app, db) {
             encode_search = encodeURIComponent(search) ;
             console.log(encode_search);
             insta_url = 'https://www.instagram.com/explore/tags/' + encode_search + '/';
-            //insta_url = 'https://www.instagram.com/explore/tags/' + search + '/';
             console.log(insta_url);
             return _page.open(insta_url);
         }).then(function(status){
@@ -310,7 +306,6 @@ module.exports = function(app, db) {
             encode_search = encodeURIComponent(search) ;
             console.log(encode_search);
             insta_url = 'https://www.instagram.com/explore/tags/' + encode_search + '/';
-            //insta_url = 'https://www.instagram.com/explore/tags/' + search + '/';
             console.log(insta_url);
             return _page.open(insta_url);
         }).then(function(status){
@@ -412,7 +407,7 @@ module.exports = function(app, db) {
                         for(;;){
                             var serverData = '', _serverData = '', __serverData = '';
                             blog_start = blog_data.indexOf("\"link\"",blog_start + 1);
-                            //if(blog_start == -1) break;
+                            if(blog_start == -1) break;
                             blog_end = blog_data.indexOf(",",blog_start);
                             url = blog_data.substring(blog_start+9,blog_end-2);
 
@@ -420,7 +415,6 @@ module.exports = function(app, db) {
                             console.log("log end " + blog_end);
                             console.log('url : ' + url);
 
-                            //if(blog_start == -1) break;
                             request({
                                 url: url,
                                 mutipart:[{
@@ -505,7 +499,6 @@ module.exports = function(app, db) {
                             check = blog_data.indexOf("\"link\"",blog_start + 1);
                             console.log(blog_start + " " + check);
                             if(check == -1) break;
-                            //break;
                         }
                         res.send(blog_data);
                         console.log("--------------------------------------------------------------");
