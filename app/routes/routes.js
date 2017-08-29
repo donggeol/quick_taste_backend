@@ -10,11 +10,6 @@ var insta_url;
 
 module.exports = function(app, db) {
 
-    app.post('/test', (req, res) => {
-        // You'll create your note here.
-        console.log(req.body)
-            res.send('Hello')
-    });
 /*
     app.post('/post_blog_image', (req, res) => {
         var query = req.body.keyword;
