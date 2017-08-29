@@ -15,7 +15,7 @@ module.exports = function(app, db) {
         console.log(req.body)
             res.send('Hello')
     });
-
+/*
     app.post('/post_blog_image', (req, res) => {
         var query = req.body.keyword;
         var url = 'http://blog.naver.com/celinicious/221069169411';
@@ -111,7 +111,7 @@ module.exports = function(app, db) {
             })
         })
     });
-
+*/
     app.get('/get_blog_image', (req, res) => {
         var query = req.query.keyword;
         var url = 'http://blog.naver.com/ebseb1/221035510409';
