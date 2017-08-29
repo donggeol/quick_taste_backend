@@ -114,8 +114,8 @@ module.exports = function(app, db) {
         var serverData = '', _serverData = '', __serverData = '';
         var result = '';
 
-        console.log('[POST] get map list of : ' + query);
-        console.log('url : ' + url + path);
+        console.log('[GET] get URL of blog : ' + query);
+        console.log('url : ' + query);
 
         request({
             url: query,
@@ -340,7 +340,7 @@ module.exports = function(app, db) {
                     }
                     if(index == -1) break;
                     count++;
-                    console.log("hello hello count : ", count);
+                    console.log("count : ", count);
                     data += "{";
                     data += "\"count\":" + "\"" + count + "\",";
                     data += "\"tag\":["+ tag + "],";
@@ -394,7 +394,7 @@ module.exports = function(app, db) {
                 response.setEncoding('utf8');
                 response.on('data', function (xml) {
                     parseString(xml, function(err, result){
-                        var blog_data = JSON.stringify(result);
+                        var blog_data = JSON.stringify(result); //get blog data from naver_api
 
                         var blog_start = blog_data.indexOf("item");
                         var blog_end = blog_data.indexOf("item");
@@ -505,6 +505,8 @@ module.exports = function(app, db) {
         req.end();
     });
 
+    // search on naver blog
+    // use post method  
     app.post('/search_naver', (req, res) => {
         var search = req.body.keyword;
         var queryOption = {'query':search, 'display':10, 'start':1, 'sort':'sim'};
